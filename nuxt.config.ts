@@ -11,7 +11,7 @@ export default defineNuxtConfig(() => {
     modules: ['@nuxtjs/i18n'],
     css: [
       'vuetify/styles',
-      '@mdi/font/css/materialdesignicons.min.css' // ✅ これを追加
+      '@mdi/font/css/materialdesignicons.min.css'
     ],
     runtimeConfig: {
       public: {
