@@ -1,17 +1,33 @@
-const environment = process.env.APP_ENV; // <- (※1)
-const envSettings = require(`./env.${environment}.js`); 
+import { config as dotenvConfig } from 'dotenv';
+import vuetify from 'vite-plugin-vuetify';
 
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
-export default defineNuxtConfig({
+dotenvConfig();
+
+export default defineNuxtConfig(() => {
+  const environment = process.env.APP_ENV || 'development';
+  const envSettings = require(`./env.${environment}.js`);
+
+  return {
+    modules: ['@nuxtjs/i18n'],
+    css: [
+      'vuetify/styles',
+      '@mdi/font/css/materialdesignicons.min.css' // ✅ これを追加
+    ],
     runtimeConfig: {
-        public: {
-            kurocoApiDomain: 'https://nizumi.g.kuroco.app'
-        }
+      public: {
+        kurocoApiDomain: envSettings.BASE_URL
+      }
     },
-
     app: {
-        head: {
-            title: envSettings.META_TITLE,  // <- (※2)
-            htmlAttrs: {
-                lang: 'ja'
-            },
+      head: {
+        title: envSettings.META_TITLE,
+        htmlAttrs: {
+          lang: 'ja'
+        }
+      }
+    },
+    vite: {
+      plugins: [vuetify()]
+    }
+  };
+});
