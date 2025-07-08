@@ -15,7 +15,7 @@ export default defineNuxtConfig(() => {
     ],
     runtimeConfig: {
       public: {
-        kurocoApiDomain: envSettings.BASE_URL
+        kurocoApiDomain: "https://nizumi.g.kuroco.app"
       }
     },
     app: {
@@ -29,7 +29,7 @@ export default defineNuxtConfig(() => {
     vite: {
       plugins: [vuetify()],
       ssr: {
-        noExternal: ['vuetify']  // ←これを追加
+        noExternal: ['vuetify']  
       }
     }
   }
